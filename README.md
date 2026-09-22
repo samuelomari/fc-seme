@@ -6,7 +6,7 @@ Built from the ground up to showcase matchday fixtures, team squad rosters, touc
 
 ---
 
-## Key Features
+##  Key Features
 
 ### 1. Public Club Website (`index.html`)
 - **Hero & About Section**: Introduces Seme FC, club ground, colors (White & Gold), nickname (*The Strikers*), and club leadership.
@@ -43,7 +43,7 @@ Authorized administrators can access a suite of club management tools:
   - Approving an application marks it as **Entry Granted** with timestamp.
   - Automatically prepares the official acceptance letter inviting the applicant to team training at Seme Pitch (Machakos County).
   - Provides instant **Send via Mail Client**, **Open in Gmail Web**, and **Copy Email Text** actions.
-  - For accepted players, an **" + Add to Squad"** button quickly pre-fills the squad form to register them to the active team roster.
+  - For accepted players, an **"⚽ + Add to Squad"** button quickly pre-fills the squad form to register them to the active team roster.
 
 ---
 
