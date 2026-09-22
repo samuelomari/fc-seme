@@ -6,7 +6,7 @@ Built from the ground up to showcase matchday fixtures, team squad rosters, touc
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
 ### 1. Public Club Website (`index.html`)
 - **Hero & About Section**: Introduces Seme FC, club ground, colors (White & Gold), nickname (*The Strikers*), and club leadership.
@@ -17,16 +17,16 @@ Built from the ground up to showcase matchday fixtures, team squad rosters, touc
 
 ### 2. Role-Based Join Application (`join.html`)
 Applicants can apply to join Seme FC with role-tailored dynamic questionnaires:
-- **⚽ Squad Player**:
+- ** Squad Player**:
   - Full Name, Email, Phone Contact
   - Age & Playing Position (Goalkeeper, Defenders, Midfielders, Wingers, Forwards)
   - Previous Club / Academy history
   - Personal ambition and reasons for wanting to join Seme FC
-- **🤝 Club Sponsor**:
+- ** Club Sponsor**:
   - Organization / Brand Name
   - Email & Contact details
   - Sponsorship vision, partnership scope, and equipment/financial support details
-- **📋 Club Staff**:
+- ** Club Staff**:
   - Staff Position Choice: *Head Coach*, *Assistant Coach*, *Technical Management*, or *Support Staff*
   - Football coaching licenses, professional experience, and track record
 - **Instant Feedback & Redirection**: Form data is submitted to the admin queue in `localStorage`, displays a submission confirmation, and redirects the applicant to the homepage with a welcoming acknowledgment banner (`?applied=true`).
@@ -43,11 +43,11 @@ Authorized administrators can access a suite of club management tools:
   - Approving an application marks it as **Entry Granted** with timestamp.
   - Automatically prepares the official acceptance letter inviting the applicant to team training at Seme Pitch (Machakos County).
   - Provides instant **Send via Mail Client**, **Open in Gmail Web**, and **Copy Email Text** actions.
-  - For accepted players, an **"⚽ + Add to Squad"** button quickly pre-fills the squad form to register them to the active team roster.
+  - For accepted players, an **" + Add to Squad"** button quickly pre-fills the squad form to register them to the active team roster.
 
 ---
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 - **Frontend**: HTML5, Semantic Markup, CSS3 (Custom Variables, Flexbox, CSS Grid, Responsive Animations)
 - **Typography**: Google Fonts ([Kanit](https://fonts.google.com/specimen/Kanit) & [Karla](https://fonts.google.com/specimen/Karla))
@@ -56,7 +56,7 @@ Authorized administrators can access a suite of club management tools:
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 fc-seme/
@@ -69,7 +69,7 @@ fc-seme/
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Running Locally
 
@@ -95,7 +95,7 @@ Since the application is purely client-side with `localStorage` persistence, you
 
 ---
 
-## 🔐 Administrator Access
+##  Administrator Access
 
 - **Admin Login Trigger**: Click **Admin Portal** in the navigation bar.
 - **Default Google Account**: `samuelomari3641@gmail.com`
@@ -105,7 +105,7 @@ Since the application is purely client-side with `localStorage` persistence, you
 
 ---
 
-## 👤 Author
+##  Author
 
 - **Samuel Omari**
 - Student & Developer — Moringa School
