@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Seme FC | Membership Application</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --soil:#5C4230;
+    --soil-dark:#372617;
+    --sky:#9AA3A6;
+    --sky-dark:#4B5457;
+    --gold:#E5A438;
+    --gold-hover:#f0b654;
+    --ember:#B03F1C;
+    --ember-hover:#912f12;
+    --ink:#191510;
+    --paper:#F3EFE6;
+    --white:#FBFAF6;
+    --line-max:68ch;
+    --success:#1f7a38;
+    --danger:#c53030;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Karla',sans-serif;
+    line-height:1.55;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  h1,h2,h3,.display{
+    font-family:'Kanit',sans-serif;
+    font-weight:700;
+    line-height:1.05;
+    margin:0;
+    letter-spacing:0.2px;
+  }
+  a{color:inherit;}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;width:100%;}
+
+  :focus-visible{outline:3px solid var(--gold);outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    background:var(--ink);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  .nav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:64px;
+  }
+  .nav-brand{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Kanit',sans-serif;font-weight:700;
+    color:var(--white);font-size:1.15rem;text-decoration:none;
+  }
+  .nav-brand .dot{width:10px;height:10px;border-radius:50%;background:var(--gold);}
+  .nav-back-link{
+    color:var(--gold);
+    text-decoration:none;
+    font-weight:600;
+    font-size:0.92rem;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 14px;
+    border:1px solid rgba(229,164,56,0.5);
+    border-radius:2px;
+    transition:all .15s ease;
+  }
+  .nav-back-link:hover{
+    background:var(--gold);
+    color:var(--ink);
+    border-color:var(--gold);
+  }
+
+  /* ---------- HEADER BANNER ---------- */
+  .page-banner{
+    background:linear-gradient(135deg, var(--soil-dark) 0%, #1c130b 100%);
+    color:var(--white);
+    padding:48px 0 36px;
+    border-bottom:3px solid var(--gold);
+  }
+  .banner-eyebrow{
+    color:var(--gold);
+    font-weight:600;
+    font-size:0.9rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:8px;
+  }
+  .page-banner h1{
+    font-size:clamp(2.2rem, 5vw, 3.4rem);
+    text-transform:uppercase;
+    color:var(--white);
+  }
+  .page-banner p{
+    color:#d8d2c4;
+    margin-top:10px;
+    font-size:1.05rem;
+    max-width:var(--line-max);
+  }
+
+  /* ---------- FORM SECTION ---------- */
+  .form-section{
+    padding:44px 0 64px;
+    flex:1;
+  }
+  .form-container{
+    background:var(--white);
+    border:1px solid #e0d9ca;
+    border-radius:4px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.06);
+    padding:36px;
+  }
+
+  @media (max-width:600px){
+    .form-container{padding:22px 18px;}
+  }
+
+  /* Form Alert Banners */
+  .form-alert{
+    padding:14px 18px;
+    border-radius:3px;
+    font-size:0.95rem;
+    margin-bottom:24px;
+    display:none;
+    line-height:1.5;
+  }
+  .form-alert.error{
+    background:#fde8e8;
+    border:1px solid #f8b4b4;
+    color:var(--danger);
+    display:block;
+  }
+  .form-alert.success{
+    background:#def7ec;
+    border:1px solid #84e1bc;
+    color:var(--success);
+    display:block;
+  }
+
+  /* Step Header */
+  .step-label{
+    font-family:'Kanit',sans-serif;
+    font-size:1.18rem;
+    font-weight:700;
+    text-transform:uppercase;
+    color:var(--ink);
+    margin:0 0 16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .step-num{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:var(--gold);
+    color:var(--ink);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.9rem;
+    font-weight:800;
+  }
+
+  /* Role Selection Cards */
+  .role-cards{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+    margin-bottom:32px;
+  }
+  @media (max-width:720px){
+    .role-cards{grid-template-columns:1fr;}
+  }
+  .role-card-label{
+    cursor:pointer;
+    display:block;
+  }
+  .role-card-label input[type="radio"]{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+  }
+  .role-card{
+    border:2px solid #e0d9ca;
+    background:var(--paper);
+    border-radius:4px;
+    padding:20px 18px;
+    text-align:center;
+    transition:all .18s ease;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .role-card-icon{
+    font-size:2.2rem;
+    margin-bottom:8px;
+    line-height:1;
+  }
+  .role-card-title{
+    font-family:'Kanit',sans-serif;
+    font-size:1.15rem;
+    font-weight:700;
+    text-transform:uppercase;
+    color:var(--ink);
+    margin-bottom:4px;
+  }
+  .role-card-desc{
+    font-size:0.84rem;
+    color:#6c6454;
+    line-height:1.35;
+  }
+  .role-card-label input[type="radio"]:checked + .role-card{
+    border-color:var(--gold);
+    background:var(--white);
+    box-shadow:0 0 0 3px rgba(229,164,56,0.3);
+    transform:translateY(-2px);
+  }
+  .role-card-label input[type="radio"]:checked + .role-card .role-card-title{
+    color:var(--ember);
+  }
+
+  /* Form Fields */
+  .form-grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:640px){
+    .form-grid-2{grid-template-columns:1fr;}
+  }
+  .form-field{
+    margin-bottom:20px;
+  }
+  .form-field label{
+    display:block;
+    font-size:0.9rem;
+    color:#3d362a;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .form-field .field-hint{
+    font-weight:normal;
+    color:#736a59;
+    font-size:0.8rem;
+    margin-left:4px;
+  }
+  .form-field input, .form-field select, .form-field textarea{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid #ccc4b0;
+    background:var(--white);
+    font-family:inherit;
+    font-size:0.98rem;
+    border-radius:2px;
+    color:var(--ink);
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{
+    border-color:var(--gold);
+    outline:none;
+    box-shadow:0 0 0 3px rgba(229,164,56,0.22);
+  }
+  .form-field textarea{
+    resize:vertical;
+    min-height:110px;
+  }
+
+  /* Staff Role Options */
+  .staff-roles-options{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:10px;
+    margin-top:6px;
+  }
+  @media (max-width:540px){
+    .staff-roles-options{grid-template-columns:1fr;}
+  }
+  .staff-radio-label{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:var(--paper);
+    border:1px solid #dcd4c3;
+    padding:10px 14px;
+    border-radius:2px;
+    cursor:pointer;
+    font-size:0.92rem;
+    font-weight:600;
+    transition:background .15s, border-color .15s;
+  }
+  .staff-radio-label:hover{
+    background:#ece6d9;
+  }
+  .staff-radio-label input[type="radio"]:checked + span{
+    color:var(--ember);
+  }
+  .staff-radio-label input[type="radio"]{
+    accent-color:var(--gold);
+  }
+
+  /* Role Conditional Sections */
+  .role-conditional{
+    border-top:1px dashed #dcd4c3;
+    padding-top:24px;
+    margin-top:12px;
+    display:none;
+  }
+  .role-conditional.active{
+    display:block;
+    animation:fadeIn .25s ease-out;
+  }
+  @keyframes fadeIn{
+    from{opacity:0;transform:translateY(6px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  /* Form actions */
+  .form-actions{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+    border-top:1px solid #e0d9ca;
+    padding-top:24px;
+    margin-top:28px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:14px 30px;
+    border-radius:2px;
+    font-weight:700;
+    text-decoration:none;
+    font-size:1rem;
+    transition:transform .15s, background .15s, color .15s;
+    border:2px solid transparent;
+    cursor:pointer;
+    font-family:inherit;
+    letter-spacing:0.3px;
+  }
+  .btn-primary{background:var(--gold);color:var(--ink);}
+  .btn-primary:hover{background:var(--gold-hover);transform:translateY(-2px);}
+  .btn-ghost{
+    border-color:#b5ad9a;
+    color:var(--ink);
+    background:transparent;
+  }
+  .btn-ghost:hover{
+    border-color:var(--ink);
+    background:rgba(0,0,0,0.04);
+  }
+
+  .approval-notice{
+    font-size:0.88rem;
+    color:#736a59;
+    max-width:44ch;
+    line-height:1.4;
+  }
+
+  /* Footer */
+  footer{
+    background:var(--ink);
+    color:#8a8271;
+    text-align:center;
+    padding:28px 24px;
+    font-size:0.88rem;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  footer strong{color:var(--paper);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-brand"><span class="dot"></span>SEME FC</a>
+    <a href="index.html" class="nav-back-link">&larr; Return to Club Home</a>
+  </div>
+</nav>
+
+<!-- HEADER BANNER -->
+<header class="page-banner">
+  <div class="wrap">
+    <div class="banner-eyebrow">Seme FC &middot; Machakos County</div>
+    <h1>Join Seme FC</h1>
+    <p>Complete your membership application below. All submissions are sent directly to the club administration for review and formal approval.</p>
+  </div>
+</header>
+
+<!-- APPLICATION FORM -->
+<main class="form-section">
+  <div class="wrap">
+    <div class="form-container">
+      
+      <!-- Submission alert message -->
+      <div id="joinAlert" class="form-alert"></div>
+
+      <form id="joinClubForm" novalidate>
+        
+        <!-- STEP 1: CHOOSE YOUR ROLE -->
+        <div class="step-label">
+          <span class="step-num">1</span> Select your role in the club
+        </div>
+
+        <div class="role-cards">
+          <label class="role-card-label">
+            <input type="radio" name="clubRole" value="player" checked>
+            <div class="role-card">
+              <div class="role-card-icon">⚽</div>
+              <div class="role-card-title">Squad Player</div>
+              <div class="role-card-desc">Join our team on the pitch and compete in Machakos County matches.</div>
+            </div>
+          </label>
+
+          <label class="role-card-label">
+            <input type="radio" name="clubRole" value="sponsor">
+            <div class="role-card">
+              <div class="role-card-icon">🤝</div>
+              <div class="role-card-title">Club Sponsor</div>
+              <div class="role-card-desc">Partner with and sponsor Seme FC to empower grassroots talent.</div>
+            </div>
+          </label>
+
+          <label class="role-card-label">
+            <input type="radio" name="clubRole" value="staff">
+            <div class="role-card">
+              <div class="role-card-icon">📋</div>
+              <div class="role-card-title">Club Staff</div>
+              <div class="role-card-desc">Join the coaching staff, technical unit, or support management.</div>
+            </div>
+          </label>
+        </div>
+
+        <!-- STEP 2: BASIC CONTACT INFORMATION (COMMON) -->
+        <div class="step-label">
+          <span class="step-num">2</span> Your contact details
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="applicantName">Full Name / Organization Name <span class="field-hint">(Required)</span></label>
+            <input id="applicantName" type="text" placeholder="e.g. Samuel Omari" required>
+          </div>
+          <div class="form-field">
+            <label for="applicantEmail">Email Address <span class="field-hint">(Gmail or Yahoo preferred)</span></label>
+            <input id="applicantEmail" type="email" placeholder="example@gmail.com" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="applicantPhone">Phone / WhatsApp Contact <span class="field-hint">(e.g. +254 712 345 678)</span></label>
+          <input id="applicantPhone" type="tel" placeholder="e.g. +254 712 345 678" required>
+        </div>
+
+        <!-- STEP 3: ROLE-SPECIFIC QUESTIONS -->
+        
+        <!-- === SECTION: PLAYER FIELDS === -->
+        <div id="sectionPlayer" class="role-conditional active">
+          <div class="step-label">
+            <span class="step-num">3</span> Player football background
+          </div>
+          
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="playerAge">Age <span class="field-hint">(Years)</span></label>
+              <input id="playerAge" type="number" min="12" max="50" placeholder="e.g. 21">
+            </div>
+
+            <div class="form-field">
+              <label for="playerPosition">Playing Position</label>
+              <select id="playerPosition">
+                <option value="">-- Select Playing Position --</option>
+                <option value="Goalkeeper">Goalkeeper (GK)</option>
+                <option value="Center Back">Center Back (CB)</option>
+                <option value="Full Back">Full Back (LB / RB)</option>
+                <option value="Defensive Midfielder">Defensive Midfielder (CDM)</option>
+                <option value="Central Midfielder">Central Midfielder (CM / CAM)</option>
+                <option value="Winger">Winger (LW / RW)</option>
+                <option value="Striker / Forward">Striker / Forward (ST / CF)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="playerPrevClub">Previous Club / Academy Played For <span class="field-hint">(Enter 'None' or 'School team' if first club)</span></label>
+            <input id="playerPrevClub" type="text" placeholder="e.g. Machakos All Stars, High School Team, or None">
+          </div>
+
+          <div class="form-field">
+            <label for="playerReason">Why would you like to join Seme FC?</label>
+            <textarea id="playerReason" placeholder="Tell us about your passion, ambitions, and why you want to wear the Seme FC jersey..."></textarea>
+          </div>
+        </div>
+
+        <!-- === SECTION: SPONSOR FIELDS === -->
+        <div id="sectionSponsor" class="role-conditional">
+          <div class="step-label">
+            <span class="step-num">3</span> Sponsorship proposal &amp; vision
+          </div>
+
+          <div class="form-field">
+            <label for="sponsorReason">Why do you see it fit to sponsor Seme FC?</label>
+            <textarea id="sponsorReason" placeholder="Share your sponsorship vision, what kind of partnership or support you wish to provide (e.g. kits, equipment, financial sponsorship, grassroots development)..."></textarea>
+          </div>
+        </div>
+
+        <!-- === SECTION: STAFF FIELDS === -->
+        <div id="sectionStaff" class="role-conditional">
+          <div class="step-label">
+            <span class="step-num">3</span> Staff role &amp; experience
+          </div>
+
+          <div class="form-field">
+            <label>Select Desired Staff Position <span class="field-hint">(Choose one)</span></label>
+            <div class="staff-roles-options">
+              <label class="staff-radio-label">
+                <input type="radio" name="staffRoleChoice" value="Head Coach" checked>
+                <span>Head Coach</span>
+              </label>
+              <label class="staff-radio-label">
+                <input type="radio" name="staffRoleChoice" value="Assistant Coach">
+                <span>Assistant Coach</span>
+              </label>
+              <label class="staff-radio-label">
+                <input type="radio" name="staffRoleChoice" value="Technical Management">
+                <span>Technical Management</span>
+              </label>
+              <label class="staff-radio-label">
+                <input type="radio" name="staffRoleChoice" value="Support Staff">
+                <span>Support Staff</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-field" style="margin-top:20px;">
+            <label for="staffExperience">Experience &amp; Professionalism</label>
+            <textarea id="staffExperience" placeholder="Describe your football coaching badges, management experience, certifications, track record, and how you will help develop Seme FC..."></textarea>
+          </div>
+        </div>
+
+        <!-- FORM ACTIONS -->
+        <div class="form-actions">
+          <div class="approval-notice">
+            ⏳ <strong>Admin Approval Required:</strong> Once submitted, your application will be reviewed by Samuel Omari (Club Admin). If accepted, you will receive an official email granting entry to training.
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <a href="index.html" class="btn btn-ghost">Cancel</a>
+            <button type="submit" class="btn btn-primary" id="btnSubmitApplication">Submit Application</button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Seme FC</strong> &middot; Seme, Machakos County, Kenya &middot; Managed by <a href="mailto:samuelomari3641@gmail.com" style="text-decoration:underline;color:inherit;">samuelomari3641@gmail.com</a>
+</footer>
+
+<script>
+  const STORAGE_KEYS = {
+    applications: 'fcseme_applications_v1'
+  };
+
+  const roleRadios = document.querySelectorAll('input[name="clubRole"]');
+  const sectionPlayer = document.getElementById('sectionPlayer');
+  const sectionSponsor = document.getElementById('sectionSponsor');
+  const sectionStaff = document.getElementById('sectionStaff');
+  const form = document.getElementById('joinClubForm');
+  const alertBox = document.getElementById('joinAlert');
+  const submitBtn = document.getElementById('btnSubmitApplication');
+
+  // Toggle role-specific field sections
+  function updateRoleSections() {
+    const selectedRole = document.querySelector('input[name="clubRole"]:checked').value;
+    sectionPlayer.classList.toggle('active', selectedRole === 'player');
+    sectionSponsor.classList.toggle('active', selectedRole === 'sponsor');
+    sectionStaff.classList.toggle('active', selectedRole === 'staff');
+  }
+
+  roleRadios.forEach(radio => {
+    radio.addEventListener('change', updateRoleSections);
+  });
+
+  function showAlert(msg, isError = true) {
+    alertBox.textContent = msg;
+    alertBox.className = 'form-alert ' + (isError ? 'error' : 'success');
+    alertBox.style.display = 'block';
+    alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Handle Form Submission
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const selectedRole = document.querySelector('input[name="clubRole"]:checked').value;
+    const name = document.getElementById('applicantName').value.trim();
+    const email = document.getElementById('applicantEmail').value.trim();
+    const phone = document.getElementById('applicantPhone').value.trim();
+
+    // 1. Validate common fields
+    if (!name || !email || !phone) {
+      showAlert('Please fill in your Name, Email, and Phone / WhatsApp contact number.');
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      showAlert('Please provide a valid email address (e.g. yourname@gmail.com).');
+      return;
+    }
+
+    // Phone validation
+    const phoneDigits = phone.replace(/[\s\-\(\)\+]/g, '');
+    if (phoneDigits.length < 9) {
+      showAlert('Please provide a valid contact phone number with at least 9 digits.');
+      return;
+    }
+
+    // Role-specific validation & data gathering
+    const applicationData = {
+      id: 'app-' + Date.now(),
+      role: selectedRole,
+      name,
+      email,
+      phone,
+      status: 'pending', // 'pending' | 'accepted' | 'rejected'
+      submittedAt: new Date().toLocaleString(),
+      acceptedAt: null
+    };
+
+    if (selectedRole === 'player') {
+      const age = document.getElementById('playerAge').value.trim();
+      const position = document.getElementById('playerPosition').value.trim();
+      const previousClub = document.getElementById('playerPrevClub').value.trim();
+      const reason = document.getElementById('playerReason').value.trim();
+
+      if (!age || isNaN(age) || parseInt(age, 10) < 10 || parseInt(age, 10) > 60) {
+        showAlert('Please enter a valid age between 10 and 60 for the player.');
+        return;
+      }
+      if (!position) {
+        showAlert('Please select your preferred playing position.');
+        return;
+      }
+      if (!previousClub) {
+        showAlert('Please specify your previous club, academy, or enter "None" if Seme FC is your first club.');
+        return;
+      }
+      if (!reason || reason.length < 10) {
+        showAlert('Please tell us why you would like to join Seme FC (at least 10 characters).');
+        return;
+      }
+
+      applicationData.playerAge = parseInt(age, 10);
+      applicationData.playerPosition = position;
+      applicationData.playerPrevClub = previousClub;
+      applicationData.playerReason = reason;
+
+    } else if (selectedRole === 'sponsor') {
+      const reason = document.getElementById('sponsorReason').value.trim();
+      if (!reason || reason.length < 10) {
+        showAlert('Please explain why you see it fit to sponsor Seme FC and how you would like to partner with us.');
+        return;
+      }
+      applicationData.sponsorReason = reason;
+
+    } else if (selectedRole === 'staff') {
+      const staffRoleChoice = document.querySelector('input[name="staffRoleChoice"]:checked');
+      const staffRole = staffRoleChoice ? staffRoleChoice.value : 'Support Staff';
+      const experience = document.getElementById('staffExperience').value.trim();
+
+      if (!experience || experience.length < 10) {
+        showAlert('Please provide details regarding your experience and professionalism.');
+        return;
+      }
+
+      applicationData.staffRole = staffRole;
+      applicationData.staffExperience = experience;
+    }
+
+    // Save application to localStorage
+    let currentApps = [];
+    try {
+      const raw = localStorage.getItem(STORAGE_KEYS.applications);
+      if (raw) currentApps = JSON.parse(raw);
+    } catch(err) {
+      currentApps = [];
+    }
+
+    currentApps.unshift(applicationData);
+    localStorage.setItem(STORAGE_KEYS.applications, JSON.stringify(currentApps));
+
+    // Disable submit button to prevent duplicate submissions
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    // Showcase success message
+    showAlert(
+      'Form sent! Your application has been submitted to the admin to await approval. Redirecting you to the home page...',
+      false
+    );
+
+    // Redirect user to home page after 1.8 seconds
+    setTimeout(() => {
+      window.location.href = 'index.html?applied=true&name=' + encodeURIComponent(name);
+    }, 1800);
+  });
+</script>
+
+</body>
+</html>
+

@@ -669,7 +669,254 @@
   @media (max-width:800px){
     .about-grid, .contact-grid{grid-template-columns:1fr;}
     .gallery-grid{grid-template-columns:1fr;}
-    .gallery-side{grid-template-rows:1fr 1fr;grid-auto-flow:column;}
+  /* Notification Toast / Banner for applied=true */
+  .applied-toast-banner{
+    background:linear-gradient(90deg, #1f7a38 0%, #155724 100%);
+    color:white;
+    padding:16px 24px;
+    font-size:0.96rem;
+    position:relative;
+    z-index:90;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    display:none;
+  }
+  .applied-toast-banner.show{display:block;}
+  .applied-toast-inner{
+    max-width:1120px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .applied-toast-close{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.4);
+    color:white;
+    padding:4px 12px;
+    border-radius:2px;
+    cursor:pointer;
+    font-weight:600;
+    font-size:0.85rem;
+  }
+  .applied-toast-close:hover{
+    background:white;
+    color:#155724;
+  }
+
+  /* Admin Applications Portal */
+  .apps-filter-bar{
+    display:flex;
+    gap:8px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .apps-filter-btn{
+    background:var(--paper);
+    border:1px solid #d5cebf;
+    padding:6px 14px;
+    border-radius:2px;
+    font-size:0.85rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all .15s;
+    font-family:inherit;
+    color:var(--ink);
+  }
+  .apps-filter-btn:hover{
+    border-color:var(--gold);
+    background:#ebe5d7;
+  }
+  .apps-filter-btn.active{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:var(--ink);
+  }
+
+  .app-list{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .app-card{
+    background:white;
+    border:1px solid #dfd8c9;
+    border-radius:3px;
+    padding:18px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.04);
+    transition:box-shadow .15s;
+  }
+  .app-card:hover{
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  }
+  .app-card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:12px;
+    flex-wrap:wrap;
+  }
+  .app-applicant-name{
+    font-family:'Kanit',sans-serif;
+    font-size:1.18rem;
+    font-weight:700;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .app-role-badge{
+    font-size:0.75rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    padding:3px 8px;
+    border-radius:2px;
+    font-family:'Karla',sans-serif;
+  }
+  .role-player-badge{background:#e3edf7;color:#1d4ed8;border:1px solid #bfdbfe;}
+  .role-sponsor-badge{background:#fef3c7;color:#b45309;border:1px solid #fde68a;}
+  .role-staff-badge{background:#f3e8ff;color:#7e22ce;border:1px solid #e9d5ff;}
+
+  .app-status-badge{
+    padding:3px 10px;
+    border-radius:2px;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:0.3px;
+    text-transform:uppercase;
+  }
+  .status-pending{background:#fffbeb;color:#b45309;border:1px solid #fde68a;}
+  .status-accepted{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;}
+  .status-rejected{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;}
+
+  .app-contacts-row{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    font-size:0.88rem;
+    color:var(--soil);
+    margin-bottom:14px;
+    padding-bottom:10px;
+    border-bottom:1px solid #f0eae0;
+  }
+  .app-contacts-row a{
+    color:inherit;
+    text-decoration:underline;
+  }
+  .app-details-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:8px;
+    font-size:0.92rem;
+    background:#faf8f4;
+    padding:12px 14px;
+    border-radius:2px;
+    border:1px solid #eee8dc;
+    margin-bottom:14px;
+  }
+  .app-detail-item{
+    line-height:1.45;
+  }
+  .app-detail-label{
+    font-weight:700;
+    color:#5a5142;
+    margin-right:6px;
+  }
+  .app-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    padding-top:10px;
+    border-top:1px solid #f0eae0;
+  }
+  .app-btn{
+    padding:6px 14px;
+    font-size:0.84rem;
+    font-weight:700;
+    border-radius:2px;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:all .15s;
+    font-family:inherit;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+  }
+  .app-btn-accept{
+    background:#1f7a38;
+    color:white;
+  }
+  .app-btn-accept:hover{
+    background:#165a29;
+  }
+  .app-btn-reject{
+    background:transparent;
+    border-color:#fca5a5;
+    color:#b91c1c;
+  }
+  .app-btn-reject:hover{
+    background:#fee2e2;
+  }
+  .app-btn-squad{
+    background:var(--gold);
+    color:var(--ink);
+  }
+  .app-btn-squad:hover{
+    background:var(--gold-hover);
+  }
+  .app-btn-resend{
+    background:#f3f4f6;
+    border-color:#d1d5db;
+    color:#374151;
+  }
+  .app-btn-resend:hover{
+    background:#e5e7eb;
+  }
+  .app-btn-delete{
+    background:none;
+    border:none;
+    color:#9ca3af;
+    font-size:0.8rem;
+    cursor:pointer;
+    text-decoration:underline;
+    padding:4px 6px;
+  }
+  .app-btn-delete:hover{
+    color:var(--danger);
+  }
+
+  /* Acceptance Email Preview Modal Box */
+  .email-preview-meta{
+    background:#f5f2eb;
+    padding:12px 16px;
+    border-radius:3px;
+    font-size:0.88rem;
+    margin-bottom:14px;
+    border:1px solid #e5dfd2;
+  }
+  .email-preview-meta div{
+    margin-bottom:4px;
+  }
+  .email-preview-meta div:last-child{margin-bottom:0;}
+  .email-body-preview{
+    background:white;
+    border:1px solid #ded7c8;
+    padding:16px;
+    border-radius:2px;
+    font-family:inherit;
+    font-size:0.92rem;
+    white-space:pre-wrap;
+    line-height:1.55;
+    color:#2b261f;
+    max-height:240px;
+    overflow-y:auto;
   }
 </style>
 </head>
@@ -685,9 +932,20 @@
     <div class="admin-bar-actions">
       <button type="button" class="admin-mini-btn" id="adminAddMatchTopBtn">+ Add Match</button>
       <button type="button" class="admin-mini-btn" id="adminAddPlayerTopBtn">+ Add Player</button>
+      <button type="button" class="admin-mini-btn" id="adminViewAppsBtn">📋 Applications (<span id="adminAppsCount">0</span>)</button>
       <button type="button" class="admin-mini-btn" id="adminViewInboxBtn">📬 Inbox (<span id="inboxCount">0</span>)</button>
       <button type="button" class="admin-mini-btn logout-btn" id="adminLogoutBtn">Sign Out</button>
     </div>
+  </div>
+</div>
+
+<!-- APPLICATION SUBMISSION NOTIFICATION BANNER -->
+<div id="appliedToastBanner" class="applied-toast-banner">
+  <div class="applied-toast-inner">
+    <div>
+      <strong>🎉 Application Submitted!</strong> <span id="appliedToastText">Your membership application has been received and is awaiting admin approval. You will receive an email once your entry is granted!</span>
+    </div>
+    <button type="button" class="applied-toast-close" id="btnCloseAppliedToast">Dismiss &times;</button>
   </div>
 </div>
 
@@ -701,6 +959,7 @@
         <li><a href="#fixtures">Fixtures</a></li>
         <li><a href="#squad">Squad</a></li>
         <li><a href="#gallery">Gallery</a></li>
+        <li><a href="join.html" style="color:var(--gold);font-weight:700;">Join Club</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <button type="button" class="btn-admin-nav" id="navAdminBtn">
@@ -721,7 +980,7 @@
       <p class="lede">Grassroots football built on the pitches of Seme &mdash; where every match starts with the flag going up and the whistle going off.</p>
       <div class="hero-cta">
         <a href="#fixtures" class="btn btn-primary">See next match</a>
-        <a href="#contact" class="btn btn-ghost">Join the club</a>
+        <a href="join.html" class="btn btn-ghost">Join the club</a>
       </div>
     </div>
   </div>
@@ -984,6 +1243,63 @@
   </div>
 </div>
 
+<!-- MODAL: ADMIN APPLICATIONS MANAGEMENT -->
+<div id="appsModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="appsModalTitle">
+  <div class="modal-card" style="max-width:760px;">
+    <div class="modal-header">
+      <h3 id="appsModalTitle">📋 Membership &amp; Join Applications</h3>
+      <button type="button" class="modal-close" data-close-modal="appsModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <!-- Filter Bar -->
+      <div class="apps-filter-bar">
+        <button type="button" class="apps-filter-btn active" data-app-filter="all">All (<span id="countAllApps">0</span>)</button>
+        <button type="button" class="apps-filter-btn" data-app-filter="pending">Pending Approval (<span id="countPendingApps">0</span>)</button>
+        <button type="button" class="apps-filter-btn" data-app-filter="accepted">Accepted / Entry Granted (<span id="countAcceptedApps">0</span>)</button>
+        <button type="button" class="apps-filter-btn" data-app-filter="player">Players</button>
+        <button type="button" class="apps-filter-btn" data-app-filter="sponsor">Sponsors</button>
+        <button type="button" class="apps-filter-btn" data-app-filter="staff">Staff</button>
+      </div>
+
+      <div id="appsListContainer" class="app-list">
+        <!-- Applications will be rendered here dynamically -->
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between;">
+      <button type="button" class="btn btn-ghost btn-sm" style="color:var(--ember);border-color:#f0c0c0;" id="btnClearApps">Clear All Applications</button>
+      <button type="button" class="btn btn-primary btn-sm" data-close-modal="appsModal">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: EMAIL DISPATCH & ACCEPTANCE CONFIRMATION -->
+<div id="emailPreviewModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="emailPreviewTitle">
+  <div class="modal-card" style="max-width:640px;">
+    <div class="modal-header" style="background:#144c27;">
+      <h3 id="emailPreviewTitle">✉️ Entry Acceptance Email Prepared</h3>
+      <button type="button" class="modal-close" data-close-modal="emailPreviewModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:14px;color:#155724;background:#def7ec;padding:12px 14px;border-radius:2px;font-weight:600;font-size:0.92rem;border:1px solid #84e1bc;">
+        ✅ Application approved! Entry to the team is granted and an email notice has been prepared for the applicant.
+      </div>
+      <div class="email-preview-meta">
+        <div><strong>To Applicant:</strong> <span id="previewEmailTo"></span></div>
+        <div><strong>Email Subject:</strong> <span id="previewEmailSubject"></span></div>
+      </div>
+      <div style="font-size:0.82rem;font-weight:700;color:#555;margin-bottom:6px;text-transform:uppercase;">Official Entry Invitation Body:</div>
+      <div class="email-body-preview" id="previewEmailBody"></div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between;flex-wrap:wrap;gap:10px;">
+      <button type="button" class="btn btn-ghost btn-sm" id="btnCopyEmailText">📋 Copy Email Text</button>
+      <div style="display:flex;gap:8px;">
+        <a id="btnGmailWebLink" href="#" target="_blank" class="btn btn-ghost btn-sm" style="color:#d93025;border-color:#d93025;text-decoration:none;">Open in Gmail Web</a>
+        <a id="btnMailtoLink" href="#" class="btn btn-primary btn-sm" style="text-decoration:none;">Send Email (Mail Client)</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   /* ==========================================================================
      ADMIN CREDENTIALS & CONSTANTS
@@ -997,7 +1313,8 @@
     isAdmin: 'fcseme_admin_logged_in',
     fixtures: 'fcseme_fixtures_v2',
     squad: 'fcseme_squad_v2',
-    inbox: 'fcseme_admin_inbox_v1'
+    inbox: 'fcseme_admin_inbox_v1',
+    applications: 'fcseme_applications_v1'
   };
 
   /* Default initial fixtures */
@@ -1107,6 +1424,21 @@
     updateInboxCount();
   }
 
+  function getApplications() {
+    const raw = localStorage.getItem(STORAGE_KEYS.applications);
+    if (!raw) return [];
+    try {
+      return JSON.parse(raw);
+    } catch(e) {
+      return [];
+    }
+  }
+
+  function saveApplications(apps) {
+    localStorage.setItem(STORAGE_KEYS.applications, JSON.stringify(apps));
+    updateAppsCount();
+  }
+
   /* ==========================================================================
      ADMIN UI TOGGLE
      ========================================================================== */
@@ -1129,6 +1461,7 @@
       navAdminBtn.style.color = 'var(--gold)';
     }
     updateInboxCount();
+    updateAppsCount();
     renderFixtures();
     renderSquad();
   }
@@ -1139,6 +1472,24 @@
     if (countEl) {
       countEl.textContent = inbox.length;
     }
+  }
+
+  function updateAppsCount() {
+    const apps = getApplications();
+    const pendingApps = apps.filter(a => a.status === 'pending');
+    const acceptedApps = apps.filter(a => a.status === 'accepted');
+
+    const adminAppsCountEl = document.getElementById('adminAppsCount');
+    if (adminAppsCountEl) {
+      adminAppsCountEl.textContent = pendingApps.length;
+    }
+
+    const countAllEl = document.getElementById('countAllApps');
+    const countPendingEl = document.getElementById('countPendingApps');
+    const countAcceptedEl = document.getElementById('countAcceptedApps');
+    if (countAllEl) countAllEl.textContent = apps.length;
+    if (countPendingEl) countPendingEl.textContent = pendingApps.length;
+    if (countAcceptedEl) countAcceptedEl.textContent = acceptedApps.length;
   }
 
   /* ==========================================================================
@@ -1179,8 +1530,8 @@
      ========================================================================== */
   navAdminBtn.addEventListener('click', () => {
     if (getIsAdmin()) {
-      openModal('inboxModal');
-      renderInboxMessages();
+      renderApplications();
+      openModal('appsModal');
     } else {
       document.getElementById('loginErrorAlert').style.display = 'none';
       document.getElementById('loginPassword').value = '';
@@ -1612,6 +1963,288 @@
       renderInboxMessages();
     }
   });
+
+  /* ==========================================================================
+     ADMIN APPLICATIONS MANAGEMENT & ACCEPTANCE EMAIL DISPATCH
+     ========================================================================== */
+  let currentAppFilter = 'all';
+
+  document.getElementById('adminViewAppsBtn').addEventListener('click', () => {
+    if (!getIsAdmin()) return;
+    renderApplications();
+    openModal('appsModal');
+  });
+
+  // Filter button handlers
+  document.querySelectorAll('[data-app-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-app-filter]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentAppFilter = btn.getAttribute('data-app-filter');
+      renderApplications();
+    });
+  });
+
+  function renderApplications() {
+    const container = document.getElementById('appsListContainer');
+    const apps = getApplications();
+
+    let filtered = apps;
+    if (currentAppFilter === 'pending') {
+      filtered = apps.filter(a => a.status === 'pending');
+    } else if (currentAppFilter === 'accepted') {
+      filtered = apps.filter(a => a.status === 'accepted');
+    } else if (currentAppFilter === 'player') {
+      filtered = apps.filter(a => a.role === 'player');
+    } else if (currentAppFilter === 'sponsor') {
+      filtered = apps.filter(a => a.role === 'sponsor');
+    } else if (currentAppFilter === 'staff') {
+      filtered = apps.filter(a => a.role === 'staff');
+    }
+
+    if (!filtered || filtered.length === 0) {
+      container.innerHTML = '<div style="padding:28px 12px;text-align:center;color:#888;">No applications found in this view.</div>';
+      return;
+    }
+
+    container.innerHTML = filtered.map(app => {
+      // Role badge
+      let roleBadge = '';
+      if (app.role === 'player') {
+        roleBadge = '<span class="app-role-badge role-player-badge">⚽ Player</span>';
+      } else if (app.role === 'sponsor') {
+        roleBadge = '<span class="app-role-badge role-sponsor-badge">🤝 Sponsor</span>';
+      } else if (app.role === 'staff') {
+        roleBadge = `<span class="app-role-badge role-staff-badge">📋 Staff (${escapeHtml(app.staffRole || 'Support Staff')})</span>`;
+      }
+
+      // Status badge
+      let statusBadge = '';
+      if (app.status === 'accepted') {
+        statusBadge = '<span class="app-status-badge status-accepted">✅ Entry Granted</span>';
+      } else if (app.status === 'rejected') {
+        statusBadge = '<span class="app-status-badge status-rejected">❌ Rejected</span>';
+      } else {
+        statusBadge = '<span class="app-status-badge status-pending">⏳ Pending Approval</span>';
+      }
+
+      // Role specific detail fields
+      let detailsHtml = '';
+      if (app.role === 'player') {
+        detailsHtml = `
+          <div class="app-detail-item"><span class="app-detail-label">Age:</span> ${escapeHtml(app.playerAge || 'N/A')} years</div>
+          <div class="app-detail-item"><span class="app-detail-label">Playing Position:</span> <strong>${escapeHtml(app.playerPosition || 'N/A')}</strong></div>
+          <div class="app-detail-item"><span class="app-detail-label">Previous Club / Academy:</span> ${escapeHtml(app.playerPrevClub || 'N/A')}</div>
+          <div class="app-detail-item"><span class="app-detail-label">Why Join Seme FC:</span> <em>"${escapeHtml(app.playerReason || '')}"</em></div>
+        `;
+      } else if (app.role === 'sponsor') {
+        detailsHtml = `
+          <div class="app-detail-item"><span class="app-detail-label">Sponsorship Vision &amp; Reason:</span> <em>"${escapeHtml(app.sponsorReason || '')}"</em></div>
+        `;
+      } else if (app.role === 'staff') {
+        detailsHtml = `
+          <div class="app-detail-item"><span class="app-detail-label">Staff Role Choice:</span> <strong>${escapeHtml(app.staffRole || 'Support Staff')}</strong></div>
+          <div class="app-detail-item"><span class="app-detail-label">Experience &amp; Background:</span> <em>"${escapeHtml(app.staffExperience || '')}"</em></div>
+        `;
+      }
+
+      return `
+        <div class="app-card" data-app-id="${app.id}">
+          <div class="app-card-header">
+            <div>
+              <div class="app-applicant-name">
+                ${escapeHtml(app.name)} ${roleBadge}
+              </div>
+              <div style="font-size:0.82rem;color:#8a8271;margin-top:2px;">Submitted on ${escapeHtml(app.submittedAt || 'N/A')}</div>
+            </div>
+            <div>
+              ${statusBadge}
+            </div>
+          </div>
+
+          <div class="app-contacts-row">
+            <div>📧 Email: <a href="mailto:${escapeHtml(app.email)}">${escapeHtml(app.email)}</a></div>
+            <div>📞 Phone: <a href="tel:${escapeHtml(app.phone)}">${escapeHtml(app.phone)}</a></div>
+          </div>
+
+          <div class="app-details-grid">
+            ${detailsHtml}
+          </div>
+
+          <div class="app-actions">
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              ${app.status !== 'accepted' ? `
+                <button type="button" class="app-btn app-btn-accept" onclick="acceptApplication('${app.id}')">✓ Accept &amp; Grant Entry</button>
+              ` : `
+                <button type="button" class="app-btn app-btn-resend" onclick="openAcceptanceEmailPreview('${app.id}')">✉ View / Resend Acceptance Email</button>
+              `}
+              ${app.role === 'player' && app.status === 'accepted' ? `
+                <button type="button" class="app-btn app-btn-squad" onclick="addPlayerFromApplication('${app.id}')">⚽ + Add to Squad</button>
+              ` : ''}
+              ${app.status === 'pending' ? `
+                <button type="button" class="app-btn app-btn-reject" onclick="rejectApplication('${app.id}')">✕ Reject</button>
+              ` : ''}
+            </div>
+            <div>
+              <button type="button" class="app-btn-delete" onclick="deleteApplication('${app.id}')">Delete Record</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Clear All Applications
+  document.getElementById('btnClearApps').addEventListener('click', () => {
+    if (confirm('Are you sure you want to clear all applications? This action cannot be undone.')) {
+      saveApplications([]);
+      renderApplications();
+    }
+  });
+
+  // Accept Application
+  window.acceptApplication = function(id) {
+    if (!getIsAdmin()) return;
+    const apps = getApplications();
+    const app = apps.find(a => a.id === id);
+    if (!app) return;
+
+    app.status = 'accepted';
+    app.acceptedAt = new Date().toLocaleString();
+    saveApplications(apps);
+    renderApplications();
+
+    // Prepare and showcase acceptance email
+    openAcceptanceEmailPreview(id);
+  };
+
+  // Construct and Display Acceptance Email
+  window.openAcceptanceEmailPreview = function(id) {
+    const apps = getApplications();
+    const app = apps.find(a => a.id === id);
+    if (!app) return;
+
+    let roleTitle = 'Member';
+    if (app.role === 'player') {
+      roleTitle = `Squad Player (${app.playerPosition || 'Player'})`;
+    } else if (app.role === 'sponsor') {
+      roleTitle = 'Club Sponsor';
+    } else if (app.role === 'staff') {
+      roleTitle = (app.staffRole || 'Club Staff');
+    }
+
+    const subject = `Welcome to Seme FC - Application Accepted! Entry to the Team Granted`;
+    const body = `Dear ${app.name},
+
+Congratulations! We are delighted to inform you that your application to join Seme FC as a ${roleTitle} has been APPROVED by the club administration.
+
+Your entry to the team is officially GRANTED, and you can now join the team in training!
+
+TRAINING & REPORTING DETAILS:
+• Training Ground: Seme Pitch, Seme, Machakos County
+• Training Days: Tuesday, Thursday, & Saturday at 3:00 PM
+• Reporting To: Head Coach & Samuel Omari (Club Chairman)
+• What to Bring: Training kit, football boots, and personal ID
+
+We are thrilled to welcome you to the Seme FC family as we build grassroots football from the ground up.
+
+Warm regards,
+Samuel Omari
+Club Chairman & Management
+Seme FC — Machakos County, Kenya
+Club Email: samuelomari3641@gmail.com`;
+
+    document.getElementById('previewEmailTo').textContent = `${app.name} (${app.email})`;
+    document.getElementById('previewEmailSubject').textContent = subject;
+    document.getElementById('previewEmailBody').textContent = body;
+
+    const mailtoUrl = `mailto:${encodeURIComponent(app.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(app.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    const mailtoBtn = document.getElementById('btnMailtoLink');
+    const gmailBtn = document.getElementById('btnGmailWebLink');
+    const copyBtn = document.getElementById('btnCopyEmailText');
+
+    mailtoBtn.href = mailtoUrl;
+    gmailBtn.href = gmailUrl;
+
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(body).then(() => {
+        alert('Acceptance email text copied to clipboard!');
+      }).catch(() => {
+        alert('Could not copy automatically. Please copy the text from the preview box.');
+      });
+    };
+
+    openModal('emailPreviewModal');
+
+    // Auto trigger mail client with safe handling
+    setTimeout(() => {
+      try {
+        window.location.href = mailtoUrl;
+      } catch(e) {}
+    }, 400);
+  };
+
+  // Reject Application
+  window.rejectApplication = function(id) {
+    if (!getIsAdmin()) return;
+    if (confirm('Are you sure you want to mark this application as rejected?')) {
+      const apps = getApplications();
+      const app = apps.find(a => a.id === id);
+      if (app) {
+        app.status = 'rejected';
+        saveApplications(apps);
+        renderApplications();
+      }
+    }
+  };
+
+  // Delete Application
+  window.deleteApplication = function(id) {
+    if (!getIsAdmin()) return;
+    if (confirm('Are you sure you want to permanently delete this application record?')) {
+      let apps = getApplications();
+      apps = apps.filter(a => a.id !== id);
+      saveApplications(apps);
+      renderApplications();
+    }
+  };
+
+  // Add Player directly from accepted application
+  window.addPlayerFromApplication = function(id) {
+    if (!getIsAdmin()) return;
+    const apps = getApplications();
+    const app = apps.find(a => a.id === id);
+    if (!app) return;
+
+    closeModal('appsModal');
+    openPlayerForm();
+    document.getElementById('playerName').value = app.name || '';
+    document.getElementById('playerPos').value = app.playerPosition || 'Player';
+  };
+
+  /* Check for application submitted query param (applied=true) */
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('applied') === 'true') {
+    const applicantName = urlParams.get('name') ? decodeURIComponent(urlParams.get('name')) : '';
+    const toastBanner = document.getElementById('appliedToastBanner');
+    const toastText = document.getElementById('appliedToastText');
+    if (toastBanner && toastText) {
+      if (applicantName) {
+        toastText.textContent = `Thank you, ${applicantName}! Your membership application has been received and is awaiting admin approval. You will receive an email once your entry is granted!`;
+      }
+      toastBanner.classList.add('show');
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }
+
+  const btnCloseToast = document.getElementById('btnCloseAppliedToast');
+  if (btnCloseToast) {
+    btnCloseToast.addEventListener('click', () => {
+      document.getElementById('appliedToastBanner').classList.remove('show');
+    });
+  }
 
   /* ==========================================================================
      NAV TOGGLE & UTILS
