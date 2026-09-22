@@ -918,6 +918,201 @@
     max-height:240px;
     overflow-y:auto;
   }
+
+  /* ---------- COACHING & SUPPORT STAFF ---------- */
+  .staff-section{background:var(--paper);border-top:1px solid #ddd6c5;}
+  .staff-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+    gap:20px;
+  }
+  .staff-card{
+    background:var(--white);
+    border:1px solid #e2ddd0;
+    border-radius:3px;
+    padding:22px 20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    box-shadow:0 2px 8px rgba(0,0,0,0.03);
+    transition:transform .18s, box-shadow .18s;
+  }
+  .staff-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(0,0,0,0.06);
+  }
+  .staff-card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:8px;
+    gap:10px;
+  }
+  .staff-name{
+    font-family:'Kanit',sans-serif;
+    font-size:1.2rem;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .staff-role-tag{
+    display:inline-block;
+    background:#f3e8ff;
+    color:#7e22ce;
+    border:1px solid #e9d5ff;
+    padding:3px 10px;
+    border-radius:2px;
+    font-size:0.8rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:12px;
+  }
+  .staff-desc{
+    font-size:0.9rem;
+    color:#5a5142;
+    line-height:1.45;
+    margin-bottom:12px;
+    flex:1;
+  }
+  .staff-card-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:10px;
+    border-top:1px solid #f0eae0;
+    font-size:0.82rem;
+    color:#8a8271;
+  }
+  .btn-staff-delete{
+    background:transparent;
+    border:1px solid #fca5a5;
+    color:#b91c1c;
+    padding:3px 8px;
+    font-size:0.75rem;
+    font-weight:600;
+    border-radius:2px;
+    cursor:pointer;
+  }
+  .btn-staff-delete:hover{
+    background:#fee2e2;
+  }
+
+  /* ---------- PARTNERS & SPONSORS ---------- */
+  .sponsors{background:var(--white);border-top:1px solid #e2ddd0;}
+  .sponsors-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+    gap:24px;
+  }
+  .sponsor-card{
+    background:var(--paper);
+    border:2px solid #e2ddd0;
+    border-radius:4px;
+    padding:26px 22px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    box-shadow:0 3px 10px rgba(0,0,0,0.03);
+    transition:transform .18s, border-color .18s;
+  }
+  .sponsor-card:hover{
+    border-color:var(--gold);
+    transform:translateY(-2px);
+  }
+  .sponsor-card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:10px;
+  }
+  .sponsor-name{
+    font-family:'Kanit',sans-serif;
+    font-size:1.25rem;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .sponsor-partner-badge{
+    background:#fef3c7;
+    color:#b45309;
+    border:1px solid #fde68a;
+    padding:3px 10px;
+    border-radius:2px;
+    font-size:0.78rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    display:inline-block;
+    margin-bottom:12px;
+  }
+  .sponsor-desc{
+    font-size:0.92rem;
+    color:#4a4338;
+    line-height:1.5;
+    margin-bottom:14px;
+    flex:1;
+  }
+  .sponsor-card-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:10px;
+    border-top:1px solid #e5decb;
+    font-size:0.82rem;
+    color:#736a58;
+  }
+  .btn-sponsor-delete{
+    background:transparent;
+    border:1px solid #fca5a5;
+    color:#b91c1c;
+    padding:3px 8px;
+    font-size:0.75rem;
+    font-weight:600;
+    border-radius:2px;
+    cursor:pointer;
+  }
+  .btn-sponsor-delete:hover{
+    background:#fee2e2;
+  }
+  .sponsor-invite-banner{
+    background:linear-gradient(135deg, var(--soil-dark) 0%, #19120a 100%);
+    color:var(--white);
+    padding:28px 24px;
+    border-radius:3px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+    margin-top:24px;
+    border-left:4px solid var(--gold);
+  }
+  .sponsor-invite-text h4{
+    font-family:'Kanit',sans-serif;
+    font-size:1.2rem;
+    color:var(--gold);
+    margin:0 0 6px;
+    text-transform:uppercase;
+  }
+  .sponsor-invite-text p{
+    margin:0;
+    font-size:0.95rem;
+    color:#d8d2c4;
+    max-width:56ch;
+  }
+
+  /* Added to roster success badge */
+  .app-roster-badge{
+    background:#ecfdf5;
+    color:#065f46;
+    border:1px solid #a7f3d0;
+    font-size:0.75rem;
+    padding:2px 8px;
+    border-radius:2px;
+    font-weight:700;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+  }
 </style>
 </head>
 <body>
@@ -958,7 +1153,9 @@
         <li><a href="#about">Club</a></li>
         <li><a href="#fixtures">Fixtures</a></li>
         <li><a href="#squad">Squad</a></li>
+        <li><a href="#staff">Staff</a></li>
         <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#sponsors">Sponsors</a></li>
         <li><a href="join.html" style="color:var(--gold);font-weight:700;">Join Club</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -1314,7 +1511,9 @@
     fixtures: 'fcseme_fixtures_v2',
     squad: 'fcseme_squad_v2',
     inbox: 'fcseme_admin_inbox_v1',
-    applications: 'fcseme_applications_v1'
+    applications: 'fcseme_applications_v1',
+    staff: 'fcseme_staff_v1',
+    sponsors: 'fcseme_sponsors_v1'
   };
 
   /* Default initial fixtures */
@@ -1437,6 +1636,28 @@
   function saveApplications(apps) {
     localStorage.setItem(STORAGE_KEYS.applications, JSON.stringify(apps));
     updateAppsCount();
+  }
+
+  function getStaff() {
+    const raw = localStorage.getItem(STORAGE_KEYS.staff);
+    if (!raw) return [];
+    try { return JSON.parse(raw); } catch(e) { return []; }
+  }
+
+  function saveStaff(staff) {
+    localStorage.setItem(STORAGE_KEYS.staff, JSON.stringify(staff));
+    renderStaff();
+  }
+
+  function getSponsors() {
+    const raw = localStorage.getItem(STORAGE_KEYS.sponsors);
+    if (!raw) return [];
+    try { return JSON.parse(raw); } catch(e) { return []; }
+  }
+
+  function saveSponsors(sponsors) {
+    localStorage.setItem(STORAGE_KEYS.sponsors, JSON.stringify(sponsors));
+    renderSponsors();
   }
 
   /* ==========================================================================
