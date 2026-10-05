@@ -31,8 +31,10 @@ Applicants can apply to join Seme FC with role-tailored dynamic questionnaires:
   - Football coaching licenses, professional experience, and track record
 - **Instant Feedback & Redirection**: Form data is submitted to the admin queue in `localStorage`, displays a submission confirmation, and redirects the applicant to the homepage with a welcoming acknowledgment banner (`?applied=true`).
 
-### 3. Administrator Portal (`is-admin`)
-Authorized administrators can access a suite of club management tools:
+### 3. Administrator Portal (`admin.html`)
+The admin portal is a **standalone page**. It is not linked from the public website or its navigation bar — you reach it by opening `admin.html` directly (bookmark it). Unauthorized visitors are shown a sign-in gate instead of the portal.
+
+Authorized administrators get a suite of club management tools:
 - **Fixture Management**: Create, update, or remove match fixtures in real time.
 - **Squad & Photo Uploads**: Add new players, assign jersey numbers, edit details, and upload or link player profile photos.
 - **Message Inbox**: View incoming contact messages and inquiries with sender contact info and timestamps.
@@ -52,6 +54,7 @@ Authorized administrators can access a suite of club management tools:
 - **Frontend**: HTML5, Semantic Markup, CSS3 (Custom Variables, Flexbox, CSS Grid, Responsive Animations)
 - **Typography**: Google Fonts ([Kanit](https://fonts.google.com/specimen/Kanit) & [Karla](https://fonts.google.com/specimen/Karla))
 - **Logic & Storage**: Vanilla JavaScript (ES6+), Web Storage API (`localStorage`)
+- **Shared Data Layer**: `store.js` — one module loaded by both pages so the public site and the admin portal read and write the same records
 - **Email Delivery**: `mailto:` scheme integration and Gmail Web Compose URL generator
 
 ---
@@ -60,8 +63,10 @@ Authorized administrators can access a suite of club management tools:
 
 ```
 fc-seme/
-├── index.html        # Main club website, fixtures, squad & admin portal
+├── index.html        # Public club website (fixtures, squad, gallery, contact)
 ├── join.html         # Role-based membership application form (Player/Sponsor/Staff)
+├── admin.html        # Administrator portal (unlisted — visit directly)
+├── store.js          # Shared localStorage data layer used by index.html & admin.html
 ├── fcseme.jpg        # Hero banner & club corner flag photography
 ├── images/           # Additional club images and assets
 └── README.md         # Project documentation
@@ -97,11 +102,29 @@ Since the application is purely client-side with `localStorage` persistence, you
 
 ## 🔐 Administrator Access
 
-- **Admin Login Trigger**: Click **Admin Portal** in the navigation bar.
-- **Default Google Account**: `samuelomari3641@gmail.com`
+The admin portal lives on its own page, **`admin.html`**. It has **no link anywhere on the public website** — open it directly and bookmark it.
+
+1. Go to `http://localhost:8000/admin.html`
+2. You will be presented with a full-page sign-in gate (the portal itself does not load until you authenticate).
+3. Sign in and the admin bar, fixture management, squad management, applications and inbox are revealed.
+
+- **Admin Email**: `samuelomari3641@gmail.com`
 - **Default Password**: `1234%^&`
 
-*Once logged in, the golden Admin Bar appears at the top of the screen giving direct access to Fixture, Squad, Application, and Inbox management tools.*
+### Public site vs. admin portal
+
+| | `index.html` (public) | `admin.html` (admin) |
+| --- | --- | --- |
+| Fixture / squad display | ✅ Read-only | ✅ Read + edit / delete |
+| "Add Match" / "Add Player" buttons | ❌ Not present in markup | ✅ Present |
+| Contact form & applications | ✅ Submit | ✅ Review & decide |
+| Reachable from nav bar | ✅ | ❌ Unlisted |
+
+### ⚠️ Security note
+
+This is still a **client-side only** application. The credential check runs in the browser and the password sits in readable JavaScript, and all data lives in each visitor's own `localStorage`. Splitting the portal onto its own page makes it *discoverable only by direct URL* — it is **not** true access control.
+
+When you add a backend, only the small set of `get*` / `save*` functions in **`store.js`** need to be replaced with API calls; the pages and all rendering logic stay exactly as they are.
 
 ---
 
