@@ -102,20 +102,78 @@ Since the application is purely client-side with `localStorage` persistence, you
 
 ---
 
-##  Administrator Access
+## 🔐 How to Access the Admin Portal
 
-The admin portal lives on its own page, **`admin.html`**. It has **no link anywhere on the public website** — open it directly and bookmark it.
+**The short answer: open `admin.html` directly. There is deliberately no link to it anywhere on the public website.**
 
-1. Go to `http://localhost:8000/admin.html`
-2. You are presented with a sign-in gate (the portal itself does not render until you authenticate).
-3. Sign in and fixture management, squad management, applications and the inbox are revealed.
+### 1. Get the URL
+
+The portal is just a file in your project, so the URL depends on where the site is running:
+
+| Where the site runs | Admin portal URL |
+| --- | --- |
+| On your computer (`python3 -m http.server 8000`) | `http://localhost:8000/admin.html` |
+| Deployed on GitHub Pages | `https://samuelomari.github.io/fc-seme/admin.html` |
+| Any other host | `https://your-domain.com/admin.html` |
+
+Open that URL in your browser and **bookmark it**. That's it — there is nothing to click on the homepage.
+
+> Running locally? Start the server from the project folder first:
+> `python3 -m http.server 8000`, then visit the URL above.
+
+### 2. Sign in — which password?
+
+The password depends on whether you have connected the backend yet.
+
+**Not connected yet (demo mode — the repo as it stands today)**
+
+| Field | Value |
+| --- | --- |
+| Email | `samuelomari3641@gmail.com` |
+| Password | `1234%^&` |
+
+A yellow **"Demo mode — not secure"** banner appears at the top of the page. That is expected and correct for now.
+
+**Backend connected (after completing the 4 setup steps below)**
+
+| Field | Value |
+| --- | --- |
+| Email | `samuelomari3641@gmail.com` |
+| Password | the password you created in Supabase → Authentication → Users |
+
+The yellow banner disappears once real authentication is active.
+
+### 3. What you get once signed in
+
+The sign-in gate is replaced by the full portal:
+
+- **Fixture Management** — add, edit and delete match fixtures (the public homepage updates instantly)
+- **Squad Management** — add players, assign jersey numbers, upload or link photos
+- **Membership Applications** — filter by status or role, approve / reject, dispatch the acceptance email
+- **Message Inbox** — read contact form submissions
+
+### 4. Signing out
+
+Click **Sign Out** in the black admin bar at the top. The gate comes back and the session ends.
+
+### Public site vs. admin portal
 
 | | `index.html` (public) | `admin.html` (admin) |
 | --- | --- | --- |
 | Fixture / squad display | ✅ Read-only | ✅ Read + edit / delete |
 | "Add Match" / "Add Player" buttons | ❌ Not present in markup | ✅ Present |
 | Contact form & applications | ✅ Submit | ✅ Review & decide |
-| Reachable from nav bar | ✅ | ❌ Unlisted |
+| Reachable from nav bar | ✅ | ❌ Unlisted — direct URL only |
+
+### Troubleshooting
+
+| Symptom | Cause / fix |
+| --- | --- |
+| Blank page or 404 on `admin.html` | The static server isn't running, or you're in the wrong folder. Run `python3 -m http.server 8000` from the project root. |
+| Yellow "Demo mode" banner still visible after pasting keys | `supabase-config.js` wasn't saved, the keys still contain `YOUR_PROJECT` / `PASTE_`, or the browser cached the old file. Hard-refresh with `Ctrl + Shift + R`. |
+| Sign-in rejected | Check for a typo, and that you created the user in Supabase with **Auto Confirm User** ticked. |
+| Portal loads but fixtures / squad are empty | You haven't run `supabase-schema.sql` yet — it seeds the default data. |
+| Sign-in fails with "fetch failed" | Check your internet connection: the Supabase CDN script must load. |
 
 ---
 
