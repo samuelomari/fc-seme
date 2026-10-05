@@ -760,14 +760,16 @@
   <strong>Seme FC</strong> &middot; Seme, Machakos County, Kenya &middot; Managed by <a href="mailto:samuelomari3641@gmail.com" style="text-decoration:underline;color:inherit;">samuelomari3641@gmail.com</a>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 <script src="store.js"></script>
 <script>
   /* ==========================================================================
      FIXTURES (PUBLIC SCHEDULE)
      ========================================================================== */
-  function renderFixtures() {
+  async function renderFixtures() {
     const container = document.getElementById('fixtureListContainer');
-    const fixtures = getFixtures();
+    const fixtures = await getFixtures();
 
     if (!fixtures || fixtures.length === 0) {
       container.innerHTML = '<div style="padding:24px 0;color:#777;">No fixtures scheduled yet.</div>';
@@ -791,9 +793,9 @@
   /* ==========================================================================
      SQUAD (PUBLIC ROSTER)
      ========================================================================== */
-  function renderSquad() {
+  async function renderSquad() {
     const container = document.getElementById('squadGridContainer');
-    const squad = getSquad();
+    const squad = await getSquad();
 
     if (!squad || squad.length === 0) {
       container.innerHTML = '<div style="padding:24px 0;color:#777;">No squad members added yet.</div>';
@@ -832,7 +834,7 @@
   const contactForm = document.getElementById('contactForm');
   const contactAlert = document.getElementById('contactFormAlert');
 
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = document.getElementById('contactName').value.trim();
@@ -866,7 +868,7 @@
       return;
     }
 
-    // 4. Save to Admin Inbox in localStorage
+    // 4. Store the message (admin-only read is enforced by the backend)
     const newMsg = {
       id: 'msg-' + Date.now(),
       name,
@@ -875,9 +877,12 @@
       message,
       timestamp: new Date().toLocaleString()
     };
-    const inbox = getInbox();
-    inbox.unshift(newMsg);
-    saveInbox(inbox);
+    try {
+      await submitMessage(newMsg);
+    } catch (err) {
+      showContactError('Sorry, your message could not be saved. Please email us directly at ' + ADMIN_EMAIL + '.');
+      return;
+    }
 
     // 5. Construct email delivery to admin
     const adminEmail = ADMIN_EMAIL;
@@ -955,9 +960,17 @@
     toggle.setAttribute('aria-expanded', 'false');
   }));
 
-  // Initialize UI on load
-  renderFixtures();
-  renderSquad();
+  // Initialize UI on load (data may come from the backend, so allow a moment)
+  renderFixtures().catch(showLoadError);
+  renderSquad().catch(showLoadError);
+
+  function showLoadError(err) {
+    console.error('Failed to load club data:', err);
+    const list = document.getElementById('fixtureListContainer');
+    if (list && !list.innerHTML.trim()) {
+      list.innerHTML = '<div style="padding:24px 0;color:#777;">Fixtures could not be loaded. Please refresh the page.</div>';
+    }
+  }
 </script>
 
 </body>

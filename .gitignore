@@ -1,0 +1,7 @@
+# Supabase credentials — never commit the real project URL/key
+supabase-config.js
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp

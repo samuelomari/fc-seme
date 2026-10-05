@@ -580,11 +580,10 @@
   <strong>Seme FC</strong> &middot; Seme, Machakos County, Kenya &middot; Managed by <a href="mailto:samuelomari3641@gmail.com" style="text-decoration:underline;color:inherit;">samuelomari3641@gmail.com</a>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="store.js"></script>
 <script>
-  const STORAGE_KEYS = {
-    applications: 'fcseme_applications_v1'
-  };
-
   const roleRadios = document.querySelectorAll('input[name="clubRole"]');
   const sectionPlayer = document.getElementById('sectionPlayer');
   const sectionSponsor = document.getElementById('sectionSponsor');
@@ -613,7 +612,7 @@
   }
 
   // Handle Form Submission
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const selectedRole = document.querySelector('input[name="clubRole"]:checked').value;
@@ -703,17 +702,15 @@
       applicationData.staffExperience = experience;
     }
 
-    // Save application to localStorage
-    let currentApps = [];
+    // Submit to the club (admin-only read-back is enforced by the backend)
     try {
-      const raw = localStorage.getItem(STORAGE_KEYS.applications);
-      if (raw) currentApps = JSON.parse(raw);
-    } catch(err) {
-      currentApps = [];
+      await submitApplication(applicationData);
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Application';
+      showAlert('Sorry, your application could not be submitted. Please email us directly at ' + ADMIN_EMAIL + '.', true);
+      return;
     }
-
-    currentApps.unshift(applicationData);
-    localStorage.setItem(STORAGE_KEYS.applications, JSON.stringify(currentApps));
 
     // Disable submit button to prevent duplicate submissions
     submitBtn.disabled = true;

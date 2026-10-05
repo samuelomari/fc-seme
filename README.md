@@ -53,8 +53,8 @@ Authorized administrators get a suite of club management tools:
 
 - **Frontend**: HTML5, Semantic Markup, CSS3 (Custom Variables, Flexbox, CSS Grid, Responsive Animations)
 - **Typography**: Google Fonts ([Kanit](https://fonts.google.com/specimen/Kanit) & [Karla](https://fonts.google.com/specimen/Karla))
-- **Logic & Storage**: Vanilla JavaScript (ES6+), Web Storage API (`localStorage`)
-- **Shared Data Layer**: `store.js` — one module loaded by both pages so the public site and the admin portal read and write the same records
+- **Backend**: [Supabase](https://supabase.com) — Postgres, Auth and Row Level Security
+- **Data Layer**: `store.js` — one async module that transparently talks to Supabase, or falls back to `localStorage` in demo mode
 - **Email Delivery**: `mailto:` scheme integration and Gmail Web Compose URL generator
 
 ---
@@ -63,13 +63,15 @@ Authorized administrators get a suite of club management tools:
 
 ```
 fc-seme/
-├── index.html        # Public club website (fixtures, squad, gallery, contact)
-├── join.html         # Role-based membership application form (Player/Sponsor/Staff)
-├── admin.html        # Administrator portal (unlisted — visit directly)
-├── store.js          # Shared localStorage data layer used by index.html & admin.html
-├── fcseme.jpg        # Hero banner & club corner flag photography
-├── images/           # Additional club images and assets
-└── README.md         # Project documentation
+├── index.html           # Public club website (fixtures, squad, gallery, contact)
+├── join.html            # Role-based membership application form (Player/Sponsor/Staff)
+├── admin.html           # Administrator portal (unlisted — visit directly)
+├── store.js             # Shared async data + auth layer (Supabase ⇄ localStorage)
+├── supabase-schema.sql  # Tables, Row Level Security policies and seed data
+├── supabase-config.js   # Your Supabase URL + anon key (git-ignored)
+├── fcseme.jpg           # Hero banner & club corner flag photography
+├── images/              # Additional club images and assets
+└── README.md            # Project documentation
 ```
 
 ---
@@ -105,13 +107,8 @@ Since the application is purely client-side with `localStorage` persistence, you
 The admin portal lives on its own page, **`admin.html`**. It has **no link anywhere on the public website** — open it directly and bookmark it.
 
 1. Go to `http://localhost:8000/admin.html`
-2. You will be presented with a full-page sign-in gate (the portal itself does not load until you authenticate).
-3. Sign in and the admin bar, fixture management, squad management, applications and inbox are revealed.
-
-- **Admin Email**: `samuelomari3641@gmail.com`
-- **Default Password**: `1234%^&`
-
-### Public site vs. admin portal
+2. You are presented with a sign-in gate (the portal itself does not render until you authenticate).
+3. Sign in and fixture management, squad management, applications and the inbox are revealed.
 
 | | `index.html` (public) | `admin.html` (admin) |
 | --- | --- | --- |
@@ -120,11 +117,68 @@ The admin portal lives on its own page, **`admin.html`**. It has **no link anywh
 | Contact form & applications | ✅ Submit | ✅ Review & decide |
 | Reachable from nav bar | ✅ | ❌ Unlisted |
 
-### ⚠️ Security note
+---
 
-This is still a **client-side only** application. The credential check runs in the browser and the password sits in readable JavaScript, and all data lives in each visitor's own `localStorage`. Splitting the portal onto its own page makes it *discoverable only by direct URL* — it is **not** true access control.
+## 🚀 Enabling the Backend (real access control)
 
-When you add a backend, only the small set of `get*` / `save*` functions in **`store.js`** need to be replaced with API calls; the pages and all rendering logic stay exactly as they are.
+Out of the box the site runs in **demo mode**: data lives in `localStorage` and the
+sign-in check happens in JavaScript, so it is *not* real security. The demo-mode
+banner at the top of `admin.html` tells you when this is the case.
+
+To make it genuinely admin-only you need a free Supabase project. **~10 minutes, no card.**
+
+### Step 1 — Create the project
+
+1. Sign up at [supabase.com](https://supabase.com) → **New project**
+2. Name it `seme-fc`, save a database password, pick the region nearest Kenya
+3. Wait ~2 minutes for provisioning
+
+### Step 2 — Create the tables and security policies
+
+Open **SQL Editor → New query**, paste the entire contents of
+[`supabase-schema.sql`](supabase-schema.sql), and press **Run**.
+
+That script creates every table, turns on **Row Level Security**, writes the
+policies that make you the only admin, and seeds your default fixtures and squad.
+
+### Step 3 — Create your login
+
+1. **Authentication → Users → Add user → Create a new user**
+2. Email: `samuelomari3641@gmail.com`
+3. Set a password of your choosing
+4. Tick **Auto Confirm User**
+
+> This is the account listed in the `admins` table by the SQL script. No other
+> email can ever read your applications or inbox.
+
+### Step 4 — Paste your keys
+
+1. **Project Settings → API**
+2. Copy the **Project URL** and the **anon / public** key
+3. Open `supabase-config.js` and fill them in:
+
+```js
+window.FCSEME_SUPABASE = {
+  url: 'https://xxxxxxxxxxxx.supabase.co',
+  anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+};
+```
+
+Refresh `admin.html` — the demo-mode banner disappears and real sign-in begins.
+
+### Why the anon key in your code is safe
+
+The anon key is designed to be public; it ships in every Supabase app. What
+actually protects your data is **Row Level Security**, which runs inside the
+database. A visitor can read your `admin.html` source, copy the key, and still be
+rejected by the server, because the policies only grant admin access to an
+email that exists in the `admins` table.
+
+### Adding more admins later
+
+```sql
+insert into public.admins (email) values ('someone@example.com');
+```
 
 ---
 
