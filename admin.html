@@ -278,6 +278,10 @@
     max-height:90vh;display:flex;flex-direction:column;
   }
   .modal-backdrop.open .modal-card{transform:translateY(0);}
+  .modal-card > form{
+    display:flex;flex-direction:column;
+    min-height:0;flex:1;overflow:hidden;
+  }
   .modal-header{
     background:var(--ink);color:var(--white);padding:18px 24px;
     display:flex;justify-content:space-between;align-items:center;
@@ -290,10 +294,10 @@
     display:flex;align-items:center;justify-content:center;
   }
   .modal-close:hover{color:var(--white);}
-  .modal-body{padding:24px;overflow-y:auto;}
+  .modal-body{padding:24px;overflow-y:auto;flex:1;min-height:0;}
   .modal-footer{
     padding:16px 24px;background:#f4f0e6;border-top:1px solid #e5dfd2;
-    display:flex;justify-content:flex-end;gap:10px;
+    display:flex;justify-content:flex-end;gap:10px;flex-shrink:0;
   }
 
   /* ---------- INBOX ---------- */
